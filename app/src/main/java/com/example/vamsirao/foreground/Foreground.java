@@ -1,6 +1,8 @@
 package com.example.vamsirao.foreground;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
@@ -31,24 +33,22 @@ public class Foreground extends Service {
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
+    }
+
+    @Override
     public void onCreate() {
         super.onCreate();
 
-        usageAccessSettingsPage();
+       // usageAccessSettingsPage();
 
       // String currentApp= getForegroundApp();
 
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
 
-                Toast.makeText(getApplicationContext(),getForegroundApp(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getForegroundApp(), Toast.LENGTH_SHORT).show();
 
-            }
-        },10000);
-
-
+        stopSelf();
 
     }
 
